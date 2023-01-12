@@ -17,33 +17,41 @@ class Pile:
         return self.pile[-1]
 
 
-def verif(formule):
-    if test(formule[len(formule) - 1]) is False:
+def verif(chaine):
+    """Fonction qui vérifie si la chaine est correcte
+    - vérifie le nombre d'opérateurs et nombres
+    - vérifie si le dernier caractère est opérateur
+    - vérifie que chaque element est bien séparé par un espace
+    """
+    if test_operateur(chaine[len(chaine) - 1]) is False:
         raise Exception("Erreur Fin : Ne pas mettre de nombre a la fin")
-    ope = 0
-    chiffre = 0
-    nombre = ""
-    for i in range(len(formule)):
-        if test(formule[i]):
-            ope += 1
+    nb_operateur = 0
+    nb_chiffre = 0
+    chaine_nombre = ""
+    for i in range(len(chaine)):
+        if test_operateur(chaine[i]):
+            nb_operateur += 1
         else:
-            if formule[i] != ' ':
-                nombre += formule[i]
+            if chaine[i] != ' ':
+                chaine_nombre += chaine[i]
             else:
-                if nombre != "":
-                    chiffre += 1
-                    nombre = ""
-    if ope == chiffre - 1:
+                if chaine_nombre != "":
+                    nb_chiffre += 1
+                    chaine_nombre = ""
+    if nb_operateur == nb_chiffre - 1:
         return True
     else:
         raise Exception("Erreur Ratio : Mauvais Ration Nombre/Operateur")
 
 
 def verif_debut(chaine):
+    """
+    Vérifie que les deux premiers éléments de la chaine sont bien des nombres
+    """
     count = 0
     i = 0
     while count != 2:
-        if test(chaine[i]) is True:
+        if test_operateur(chaine[i]) is True:
             raise Exception("Erreur Debut : Minimum deux nombres")
         if chaine[i] == ' ':
             count += 1
@@ -52,52 +60,56 @@ def verif_debut(chaine):
 
 
 def verif_total(chaine):
+    """Réalise toute les verifications de la chaine"""
     if verif_debut(chaine) and verif(chaine):
         return True
     else:
         return False
 
 
-def test(char):
+def test_operateur(char):
+    """Vérifie si le caractère est un opérateur et retourne vrai ou faux"""
     if char == '+' or char == '-' or char == '*' or char == '/':
         return True
     else:
         return False
 
 
-def calcul(op, pile):
+def calcul(operateur, pile):
+    """Fonction qui réalise le calcul entre deux nombres en fonction de l'opérateur"""
     a = int(pile.get())
     pile.pop()
     b = int(pile.get())
     pile.pop()
-    if op == '+':
+    if operateur == '+':
         return b + a
-    elif op == '-':
+    elif operateur == '-':
         return b - a
-    elif op == '*':
+    elif operateur == '*':
         return b * a
-    elif op == '/':
+    elif operateur == '/':
         if a == 0:
             raise Exception("Erreur Division - Pas de Division par 0")
         return b / a
 
 
 def process(chaine):
+    """Parcours la chaine et réalise les calculs"""
     pile1 = Pile()
-    val = ""
+    chaine_nombre = ""
     for i in range(len(chaine)):
-        if test(chaine[i]):
+        if test_operateur(chaine[i]):
             if i != len(chaine) - 1:
                 if (chaine[i + 1] != ' ' and chaine[i - 1] != ' ') is False:
                     raise Exception("Erreur Operateur : Séparer les nombres et les opérateurs avec ' '")
             pile1.add(calcul(chaine[i], pile1))
         else:
             if chaine[i] != ' ':
-                val += chaine[i]
+                chaine_nombre += chaine[i]
             else:
-                if val != "":
-                    pile1.add(val)
-                    val = ""
+                if chaine_nombre != "":
+                    pile1.add(chaine_nombre)
+                    chaine_nombre = ""
     return pile1.afficher()
 
 
