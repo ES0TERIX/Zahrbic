@@ -42,10 +42,10 @@ def verif(chaine):
                 if chaine_nombre != "":
                     nb_chiffre += 1
                     chaine_nombre = ""
-    if nb_operateur == nb_chiffre - 1:
-        return True
-    else:
+    if nb_operateur != nb_chiffre - 1:
         raise Exception("Erreur Ratio : Mauvais Ration Nombre/Operateur")
+    else:
+        return True
 
 
 def verif_debut(chaine):
@@ -75,20 +75,22 @@ def test_operateur(char):
 
 def calcul(operateur, pile):
     """Fonction qui réalise le calcul entre deux nombres en fonction de l'opérateur"""
+    resultat = 0
     a = int(pile.get())
     pile.pop()
     b = int(pile.get())
     pile.pop()
     if operateur == '+':
-        return b + a
+        resultat = b + a
     elif operateur == '-':
-        return b - a
+        resultat = b - a
     elif operateur == '*':
-        return b * a
+        resultat = b * a
     elif operateur == '/':
         if a == 0:
             raise Exception("Erreur Division - Pas de Division par 0")
-        return b / a
+        resultat = b / a
+    return resultat
 
 
 def process(chaine):
