@@ -1,4 +1,5 @@
 class Pile:
+    """ Classe Pile dans laquelle  a été codé le principe de la pile """
     pile = []
 
     def pop(self):
