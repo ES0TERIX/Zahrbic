@@ -3,17 +3,21 @@ class Pile:
     pile = []
 
     def pop(self):
+        """ Supprime le dernier élément de la pile """
         self.pile[-1:] = []
         return self.pile
 
     def add(self, item):
+        """ Ajoute un élément à la pile """
         self.pile[len(self.pile):] = [item]
         return self.pile
 
     def afficher(self):
+        """ Affiche la pile """
         print(self.pile)
 
     def get(self):
+        """ Retourne la pile """
         return self.pile[-1]
 
 
@@ -61,18 +65,12 @@ def verif_debut(chaine):
 
 def verif_total(chaine):
     """Réalise toute les verifications de la chaine"""
-    if verif_debut(chaine) and verif(chaine):
-        return True
-    else:
-        return False
+    return verif_debut(chaine) and verif(chaine)
 
 
 def test_operateur(char):
     """Vérifie si le caractère est un opérateur et retourne vrai ou faux"""
-    if char == '+' or char == '-' or char == '*' or char == '/':
-        return True
-    else:
-        return False
+    return char == '+' or char == '-' or char == '*' or char == '/'
 
 
 def calcul(operateur, pile):
@@ -114,6 +112,7 @@ def process(chaine):
 
 
 def main():
+    """Fonction principale"""
     chaine = input("Entrez une formule : ")
     if verif_total(chaine):
         process(chaine)
