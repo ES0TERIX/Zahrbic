@@ -42,11 +42,10 @@ def verif(chaine):
                 if chaine_nombre != "":
                     nb_chiffre += 1
                     chaine_nombre = ""
-    if nb_operateur != nb_chiffre - 1:
+    if nb_operateur == nb_chiffre - 1:
         return True
-    else:
+    elif nb_operateur != nb_chiffre - 1:
         raise Exception("Erreur Ratio : Mauvais Ration Nombre/Operateur")
-
 
 
 def verif_debut(chaine):
