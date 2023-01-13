@@ -1,6 +1,6 @@
 class Pile:
     """ Classe Pile dans laquelle  a été codé le principe de la pile """
-    pile = []
+    pile = []  # Initialisation de la pile
 
     def pop(self):
         """ Supprime le dernier élément de la pile """
@@ -32,7 +32,7 @@ def verif(chaine):
     nb_operateur = 0
     nb_chiffre = 0
     chaine_nombre = ""
-    for i in range(len(chaine)):
+    for i in range(len(chaine)):  # Parcours de la chaine
         if test_operateur(chaine[i]):
             nb_operateur += 1
         else:
@@ -43,9 +43,10 @@ def verif(chaine):
                     nb_chiffre += 1
                     chaine_nombre = ""
     if nb_operateur != nb_chiffre - 1:
-        raise Exception("Erreur Ratio : Mauvais Ration Nombre/Operateur")
-    else:
         return True
+    else:
+        raise Exception("Erreur Ratio : Mauvais Ration Nombre/Operateur")
+
 
 
 def verif_debut(chaine):
@@ -97,11 +98,11 @@ def process(chaine):
     """Parcours la chaine et réalise les calculs"""
     pile1 = Pile()
     chaine_nombre = ""
-    for i in range(len(chaine)):
+    for i in range(len(chaine)):  # Parcours de la chaine
         if test_operateur(chaine[i]):
             if i != len(chaine) - 1:
-                if (chaine[i + 1] != ' ' and chaine[i - 1] != ' ') is False:
-                    raise Exception("Erreur Operateur : Séparer les nombres et les opérateurs avec ' '")
+                if (chaine[i + 1] == ' ' and chaine[i - 1] == ' ') is False:
+                    raise Exception("Erreur Operateur : Séparer nombres et opérateurs avec ' '")
             pile1.add(calcul(chaine[i], pile1))
         else:
             if chaine[i] != ' ':
